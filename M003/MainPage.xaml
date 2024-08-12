@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="M003.MainPage">
+	<!--Alles im XAML ist ein String-->
+    <ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+			<!--Aufgabenstellung: Gradient als Hintergrund-->
+			<!--Spacing: double -> simpel, wird einfach von String zu Double übersetzt-->
+			<!--Background: Brush -> komplex-->
+			<VerticalStackLayout.Background>
+				<!--Um ein Gradient zu erzeugen, muss eine komplexe Brush definiert werden-->
+				<!--LinearGradientBrush Objekt wird erzeugt, und in Background eingetragen-->
+				<LinearGradientBrush>
+					<GradientStop Color="Aqua" Offset="0"/>
+					<GradientStop Color="LightGreen" Offset="1"/>
+				</LinearGradientBrush>
+			</VerticalStackLayout.Background>
+
+			<Label>Hallo</Label>
+			<Button Text="Hallo"/>
+			
+			<!--Name: Element im Code-Behind ansprechbar machen-->
+			<Entry x:Name="Eingabe"/>
+			<Label x:Name="Output"/>
+			<Button Text="Eingabe speichern" Clicked="Button_Clicked" Margin="5, 10, 20, 40"/>
+		</VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

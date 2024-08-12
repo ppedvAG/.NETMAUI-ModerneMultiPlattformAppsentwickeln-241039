@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="M004.MainPage"
+			 BindingContext="{Binding Source={RelativeSource Self}}">
+
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+			<!--Label: Textausgabe-->
+			<Label Text="Ein Text"
+				   FontSize="40"/>
+			<!--FontSize="Large"-->
+
+			<Image Source="ppedv_logo.png"
+				   Aspect="Center"/>
+
+			<!--Buttons-->
+			<!--In MAUI gibt es zusätzlich zum Standard-Button auch noch den ImageButton-->
+			<Button Text="Ein Button"/>
+			<ImageButton Source="ppedv_logo.png"/>
+
+			<!--User Inputs-->
+			<!--Entry: Einzeilige Eingabe-->
+			<!--Editor: Mehrzeilige Eingabe-->
+			<Entry Placeholder="Gib hier einen Text ein..."
+				   IsPassword="True"/>
+			<Editor Placeholder="Gib einen langen Text ein..."/>
+
+			<!--Suche-->
+			<!--SearchBar: Entry + ImageButton kombiniert-->
+			<SearchBar Placeholder="Suche..." SearchButtonPressed="SearchStarted"/>
+
+			<!--CheckBox, Switch-->
+			<CheckBox CheckedChanged="CheckBox_CheckedChanged"
+					  IsChecked="True"/>
+			<Switch IsToggled="True"
+					Toggled="Switch_Toggled"/>
+			<!--effektiv ToggleButton-->
+
+			<!--Slider, Stepper-->
+			<!--Slider: Leiste die per Drag/Drop verändert werden kann-->
+			<!--Stepper: Plus/Minus-Buttons, welche einen versteckten Wert aktualisieren-->
+			<Slider Minimum="0"
+					Maximum="100"
+					Value="50"
+					ValueChanged="Slider_ValueChanged"/>
+			<Stepper Minimum="0"
+					 Maximum="100"
+					 Value="50"/>
+
+			<!--ProgressBar, ActivityIndicator-->
+			<ProgressBar Progress="0.4"
+						 ProgressColor="Orange"/>
+			<ActivityIndicator IsRunning="True"
+							   Color="Aqua"/>
+
+			<!--Datum/Zeit-->
+			<DatePicker MinimumDate="01.01.2000"
+						MaximumDate="01.01.2100"
+						Date="{x:Static sys:DateTime.Now}"
+						Format="dddd, dd. MMMM yyyy"/>
+			<TimePicker Time="12:00:00"
+						Format="HH:mm:ss"/>
+
+			<!--Picker/Dropdown/ComboBox-->
+			<Picker SelectedIndex="0"
+					Title="Auswählen..."
+					x:Name="Auswahl">
+				<Picker.Items>
+					<x:String>Hallo</x:String>
+					<x:String>das</x:String>
+					<x:String>ist</x:String>
+					<x:String>ein</x:String>
+					<x:String>Picker</x:String>
+				</Picker.Items>
+			</Picker>
+
+			<!--ListView-->
+			<!--Generische Komponente, um beliebige Items darzustellen-->
+			<!--Benötigt eine ItemsSource-->
+			<!--Benötigt meistens ein Template, um komplexe Darstellung zu machen-->
+			<!--Items sind selektierbar-->
+			<ListView ItemsSource="{Binding TestItems}"
+					  IsPullToRefreshEnabled="True"/>
+
+			<!--CollectionView-->
+			<!--Wie ListView, aber mit einem konfigurierbaren Layoutcontainer-->
+			<!--Benötigt eine ItemsSource-->
+			<!--Benötigt meistens ein Template, um komplexe Darstellung zu machen-->
+			<!--Items sind nicht selektierbar-->
+			<CollectionView ItemsSource="{Binding TestItems}">
+				<CollectionView.ItemsLayout>
+					<GridItemsLayout Orientation="Vertical" Span="5"/>
+				</CollectionView.ItemsLayout>
+			</CollectionView>
+
+			<!--TableView-->
+			<!--Darstellung einer Tabelle-->
+			<!--Kann auch für Daten verwendet werden-->
+			<TableView>
+				<TableRoot>
+					<TableSection>
+						<TextCell Text="Sektion 1"/>
+						<EntryCell/>
+						<EntryCell/>
+					</TableSection>
+					<TableSection>
+						<TextCell Text="Sektion 2"/>
+						<EntryCell/>
+						<EntryCell/>
+					</TableSection>
+				</TableRoot>
+			</TableView>
+
+			<!--WebView-->
+			<!--Webseite in der GUI einbinden-->
+			<WebView Source="https://ppedv.de/"/>
+
+			<Rectangle BackgroundColor="Aqua" WidthRequest="100" HeightRequest="100"/>
+			<BoxView BackgroundColor="Aqua" WidthRequest="100" HeightRequest="100"/>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>
