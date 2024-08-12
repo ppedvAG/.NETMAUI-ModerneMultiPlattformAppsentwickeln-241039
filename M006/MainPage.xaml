@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="M006.MainPage"
+			 Background="{StaticResource GlobalBackground}">
+	<!--Resourcen-->
+	<!--Verschiedene Objekte global ablegen, und diese in verschiedenen Komponenten einbinden-->
+	<!--Das Resources Property existiert auf jeder UI Komponente-->
+	<ContentPage.Resources>
+		<!--Hier können beliebige Objekte abgelegt werden (z.B. double, string, Brush, Converter, ...)-->
+		<x:Double x:Key="GlobalFontSize">30</x:Double>
+		<Color x:Key="GlobalFontColor">Aqua</Color>
+		
+		<!--Style-->
+		<!--Ermöglicht, das Setzen von Properties einer Komponente an einem Zentralen Ort-->
+		<!--Ein Style benötigt IMMER einen TargetType-->
+		<!--Ein Style hat eine Liste von Settern, die das Aussehen definieren-->
+		<!--Wenn ein Style keinen Key hat, wird dieser global angewandt-->
+		<Style TargetType="Button"> <!--x:Key="EinButtonStyle"-->
+			<Setter Property="FontFamily" Value="Comic Mono"/>
+			<Setter Property="CornerRadius" Value="0"/>
+		</Style>
+	</ContentPage.Resources>
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+			<!--Verwendung von Resourcen-->
+			<!--Resourcen werden mittels StaticResource eingebunden-->
+			<!--StaticResource aktualisiert sich nicht bei Änderungen-->
+			<Label Text="Die FontSize kommt von einer Resource"
+				   FontSize="{StaticResource GlobalFontSize}"
+				   TextColor="{StaticResource GlobalFontColor}"/>
+			
+			<Button Text="Die FontSize wird auch hier importiert"
+				   FontSize="{StaticResource GlobalFontSize}"
+				   TextColor="{StaticResource GlobalFontColor}"/>
+
+			<!--Änderungen bei Resourcen übernehmen-->
+			<!--Mittels DynamicResource können Resourcen zur Laufzeit aktualisiert werden-->
+			<Label Text="Die FontSize kommt von einer Resource (dynamisch)"
+				   FontSize="{DynamicResource GlobalFontSize}"
+				   TextColor="{DynamicResource GlobalFontColor}"/>
+
+			<Button Text="Die FontSize wird auch hier importiert (dynamisch)"
+				   FontSize="{DynamicResource GlobalFontSize}"
+				   TextColor="{DynamicResource GlobalFontColor}"
+					Clicked="Button_Clicked"/>
+	
+			<!--x:Static-->
+			<!--Statischer Zugriff wie im Backend, aber im XAML-->
+			<!--z.B. Enum Werte, DateTime.Now, ...-->
+			<DatePicker Date="{x:Static sys:DateTime.Now}"
+						TextColor="Black"/>
+			<!--<Label Text="{x:Static sys:DayOfWeek.Monday}"/>-->
+
+			<!--<Button Text="Comic Button" Style="{StaticResource EinButtonStyle}"/>-->
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>
