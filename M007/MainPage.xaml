@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:M007"
+			 xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="M007.MainPage"
+			 BindingContext="{Binding Source={RelativeSource Self}}">
+	<ContentPage.Resources>
+		<local:DoubleToIntConverter x:Key="DIC"/>
+	</ContentPage.Resources>
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+			<!--Binding-->
+			<!--Synchronisation zw. zwei Properties-->
+
+			<!--Zwei Arten-->
+			<!--Binding zw. zwei UI Komponenten (Property Binding)-->
+			<!--Binding zw. einer UI Komponente und dem Backend (Data Binding)-->
+
+			<!--Aufgabenstellung: Slider an Text binden-->
+			<Slider x:Name="NumberSlider" Minimum="0" Maximum="100" Value="50"/>
+			
+			<!--Referenz auf eine andere GUI Komponente mittels x:Reference-->
+			<Label Text="{Binding Source={x:Reference NumberSlider}, Path=Value}"/>
+			
+			<!--StringFormat-->
+			<!--Wert der beim Binding übertragen wird vor dem Anzeigen noch anpassen-->
+			<!--WICHTIG: Einzelne Hochkomma bei StringFormat verwenden-->
+			<!--{0} bezeichnet den Wert des Bindings-->
+			<Entry Text="{Binding Source={x:Reference NumberSlider}, Path=Value, StringFormat='Zahl: {0}'}"/>
+			
+			<!--Mode-->
+			<!--Richtung des Bindings-->
+			<!--Standard: Abhängig von der Komponente-->
+			<Entry Text="{Binding Source={x:Reference NumberSlider}, Path=Value, Mode=TwoWay}"/>
+			<Button Text="Test"/>
+
+			<!--BindingContext-->
+			<!--Gibt der UI vor, welches Objekt dahinter verbunden werden soll-->
+			<!--Generell ein einzelnes Objekt oder die Page selbst-->
+			<!--Auf Page Ebene: BindingContext="{Binding Source={RelativeSource Self}}" für eine Selbstbindung-->
+			<Entry Text="{Binding Eingabe}"/> <!--Text aus dem Backend wird jetzt hier angezeigt-->
+
+			<!--Bindung mit einem Objekt-->
+			<Label Text="Vorname: "/>
+			<Entry Text="{Binding person.Vorname}"/> <!--Der Wert im Entry wird ans Backend gesendet-->
+			<Button Text="Speichern" Clicked="Button_Clicked"/>
+			
+			<!--INotifyPropertyChanged-->
+			<!--Standardmäßig werden Änderungen aus dem Backend nicht an die GUI propagiert-->
+			<!--Benachrichtigungsmechanismus um Änderung vom Backend an die GUI weiterzuleiten-->
+			<!--Wird im Backend implementiert-->
+			<Button Text="Vorname generieren" Clicked="Button_Clicked_1"/>
+
+			<!--Converter-->
+			<!--Stück C# Code, welches bei einem Binding die Wertübertragung anpasst-->
+			<!--D.h. wenn ein Wert übertragen wird, kann dieser vor der Übertragung verändert werden-->
+			
+			<!--Aufgabenstellung: Slider Wert als ganze Zahl übertragen-->
+			<Slider x:Name="IntSlider" Minimum="0" Maximum="100" Value="10"/>
+			<Label Text="{Binding Source={x:Reference IntSlider}, Path=Value, Converter={StaticResource DIC}}"/>
+			
+			<!--MultiBinding-->
+			<!--Binding mit mehreren Quellen auf ein Ziel-->
+			<!--Benötigt immer einen MultiConverter-->
+			
+			<!--Aufgabenstellung: ColorPicker-->
+			<!--Quellen: 3 Slider (RGB), Ziel: Rectangle-->
+			<Slider x:Name="RSlider" Minimum="0" Maximum="255"/>
+			<Slider x:Name="GSlider" Minimum="0" Maximum="255"/>
+			<Slider x:Name="BSlider" Minimum="0" Maximum="255"/>
+
+			<Rectangle WidthRequest="100" HeightRequest="100">
+				<!--Hier wird eine komplexe Eigenschaft definiert-->
+				<Rectangle.Fill>
+					<MultiBinding>
+						<!--Binding Langform (dedizierter XML Tag)-->
+						<Binding Source="{x:Reference RSlider}" Path="Value"/>
+						<Binding Source="{x:Reference GSlider}" Path="Value"/>
+						<Binding Source="{x:Reference BSlider}" Path="Value"/>
+						<MultiBinding.Converter>
+							<local:MultiSliderToColorConverter/>
+						</MultiBinding.Converter>
+					</MultiBinding>
+				</Rectangle.Fill>
+			</Rectangle>
+			
+			<!--ObservableCollection-->
+			<!--Wird verwendet, um eine Liste mit Benachrichtigungsmechanismus zu haben-->
+			<ListView ItemsSource="{Binding Zahlen}"/>
+			<Button Text="Neues Element" Clicked="Button_Clicked_2"/>
+			
+			<!--DataTemplate-->
+			<!--Definiert, wie Daten aus einer Collection in der GUI dargestellt werden-->
+			<ListView ItemsSource="{Binding Personen}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Label Text="{Binding Vorname}"/>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<Button Text="Neues Element" Clicked="Button_Clicked_3"/>
+				
+			<!--Problemstellung: Enum in der GUI anzeigen-->
+			<!--Lösung 1: Im Backend einer Liste definieren, welche einfach gebunden wird (ItemsSource)-->
+			<Picker ItemsSource="{Binding Wochentage}"/>
+				
+			<!--Lösung 2: Eigene MarkupExtension-->
+			<!--MarkupExtension-->
+			<!--Eigene C# Klasse, die von der MarkupExtension Klasse erbt-->
+			<!--Wenn die GUI den Wert benötigt, gibt die ME den Wert über die ProvideValue Methode zurück-->
+			<!--Beispiele: Binding, StaticResource, x:Static, x:Reference, x:Null, ...-->
+			<Picker ItemsSource="{local:Enum EnumType={x:Type sys:DayOfWeek}}"/>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>
