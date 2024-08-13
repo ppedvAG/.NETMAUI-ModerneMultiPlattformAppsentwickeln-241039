@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="M008.MainPage"
+			 BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+			<Label Text="{OnPlatform WinUI='Das ist ein Windows Gerät', Android='Das ist ein Android Gerät'}"/>
+			<Label Text="{OnIdiom Desktop='Das ist ein Desktop', Phone='Das ist ein Mobiltelefon'}"/>
+			<Label Text="{Binding CurrentDevice}"/>
+		</VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
