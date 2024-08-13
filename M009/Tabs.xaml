@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--TabbedPage: Tabs für einzelne Pages-->
+<!--Externe Page Dateien erstellen und hier einbinden-->
+<!--WICHTIG: Im Backend Code die Oberklasse zu TabbedPage ändern-->
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="M009.Tabs"
+			xmlns:local="clr-namespace:M009"
+             Title="Tabs">
+	<TabbedPage.Children>
+		<local:SecondaryPage/>
+		<local:SecondaryPage/>
+		<local:SecondaryPage/>
+	</TabbedPage.Children>
+</TabbedPage>
